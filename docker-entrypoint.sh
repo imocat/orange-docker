@@ -36,6 +36,11 @@ fi
 sed -i "s/worker_processes  4;/user www www;\nworker_processes  ${processor};\ndaemon  on;/g" ${NGINX_CONF}
 sed -i "s/listen       80;/listen       8888;/g" ${NGINX_CONF}
 
+if [[ "${NGINX_DNS}" != "" ]]
+then
+    sed -i "s/resolver 114.114.114.114;/resolver ${NGINX_DNS};/g" ${NGINX_CONF}
+fi
+
 echo "设置环境"
 
 # 启动 orange

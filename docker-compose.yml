@@ -16,6 +16,7 @@ services:
     - 8888
     - 9999
     environment:
+    - NGINX_DNS=8.8.8.8
     - NGINX_WORKER_PROCESSES=2
     - ORANGE_API_USERNAME=api
     - ORANGE_API_PASSWORD=0z4qev9Gsm4v4Uh444
