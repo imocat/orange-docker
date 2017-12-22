@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: openresty.Dockerfile
-  image: orange:openresty
+    image: orange:openresty
 
   orange: 
     build: 
