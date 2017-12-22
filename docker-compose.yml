@@ -1,11 +1,5 @@
-version: '3'
+version: '2'
 services:
-  openresty:
-    build:
-      context: .
-      dockerfile: openresty.Dockerfile
-    image: orange:openresty
-
   orange: 
     build: 
       context: .

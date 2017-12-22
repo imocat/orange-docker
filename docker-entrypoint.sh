@@ -54,6 +54,7 @@ echo "启动 ORANGE"
 echo "注册 ORANGE 节点"
 for ((i=0;i<3;i++))
 do
+    # 重试 3 次
     curl -X POST \
         -u "${ORANGE_API_USERNAME}:${ORANGE_API_PASSWORD}" \
         http://127.0.0.1:7777/node/register
