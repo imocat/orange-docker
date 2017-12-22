@@ -4,7 +4,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    image: orange:v0.7.4
+    image: orange:v0.7.5
     ports:
     - 7777
     - 8888

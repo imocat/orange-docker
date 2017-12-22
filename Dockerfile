@@ -26,7 +26,7 @@ RUN date \
 && tar xf ${ORANGE_VERSION}.tar.gz \
 && cd /tmp/lor-${LOR_VERSION/v/} && make install \
 && cd /tmp/orange-${ORANGE_VERSION/v/} \
-&& echo "return ${ORANGE_VERSION/v/}" > orange/version.lua \
+&& echo "return \"${ORANGE_VERSION/v/}\"" > orange/version.lua \
 && make install \
 && luarocks install lua-resty-http \
 && luarocks install lua-resty-dns-client \
