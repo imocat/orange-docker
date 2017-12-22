@@ -1,7 +1,7 @@
 FROM centos:7
 
 ENV LOR_VERSION="v0.3.4"
-ENV ORANGE_VERSION="v0.7.3"
+ENV ORANGE_VERSION="v0.7.5"
 ENV ORANGE_PATH="/usr/local/orange"
 ENV ENTRYPOINT="/usr/local/bin/docker-entrypoint.sh"
 
@@ -25,7 +25,9 @@ RUN date \
 && tar xf ${LOR_VERSION}.tar.gz \
 && tar xf ${ORANGE_VERSION}.tar.gz \
 && cd /tmp/lor-${LOR_VERSION/v/} && make install \
-&& cd /tmp/orange-${ORANGE_VERSION/v/} && make install \
+&& cd /tmp/orange-${ORANGE_VERSION/v/} \
+&& echo "return ${ORANGE_VERSION/v/}" > orange/version.lua \
+&& make install \
 && luarocks install lua-resty-http \
 && luarocks install lua-resty-dns-client \
 && luarocks install luasocket \
