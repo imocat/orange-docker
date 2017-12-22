@@ -1,0 +1,26 @@
+version: '3'
+services:
+  openresty:
+    build:
+      context: .
+      dockerfile: openresty.Dockerfile
+  image: orange:openresty
+
+  orange: 
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: orange:build
+    ports:
+    - 7777
+    - 8888
+    - 9999
+    environment:
+    - NGINX_WORKER_PROCESSES=2
+    - ORANGE_API_USERNAME=api
+    - ORANGE_API_PASSWORD=0z4qev9Gsm4v4Uh444
+    - ORANGE_DB_HOST=192.168.31.213
+    - ORANGE_DB_PORT=3306
+    - ORANGE_DB_USER=root
+    - ORANGE_DB_PWD=123
+    - ORANGE_DB_NAME=orange
