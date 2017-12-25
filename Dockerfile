@@ -22,8 +22,8 @@ RUN date \
 && ln -s /usr/local/openresty/nginx/sbin/nginx /usr/local/bin/nginx \
 && yum clean all \
 && cd /tmp \
-&& tar xf ${LOR_VERSION}.tar.gz \
-&& tar xf ${ORANGE_VERSION}.tar.gz \
+&& sh -c 'if [[ -f "${LOR_VERSION}.tar.gz" ]];then tar xf ${LOR_VERSION}.tar.gz;fi;' \
+&& sh -c 'if [[ -f "${ORANGE_VERSION}.tar.gz" ]];then tar xf ${ORANGE_VERSION}.tar.gz;fi;' \
 && cd /tmp/lor-${LOR_VERSION/v/} && make install \
 && cd /tmp/orange-${ORANGE_VERSION/v/} \
 && echo "return \"${ORANGE_VERSION/v/}\"" > orange/version.lua \
