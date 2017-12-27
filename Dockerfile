@@ -1,7 +1,7 @@
 FROM centos:7
 
 ENV LOR_VERSION="v0.3.4"
-ENV ORANGE_VERSION="v0.7.5"
+ENV ORANGE_VERSION="v0.7.2"
 ENV ORANGE_PATH="/usr/local/orange"
 ENV ENTRYPOINT="/usr/local/bin/docker-entrypoint.sh"
 
