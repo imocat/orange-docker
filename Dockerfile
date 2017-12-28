@@ -3,15 +3,15 @@ FROM centos:7
 ENV LOR_VERSION="v0.3.4"
 ENV ORANGE_VERSION="v0.7.2"
 ENV ORANGE_PATH="/usr/local/orange"
-ENV ENTRYPOINT="/usr/local/bin/docker-entrypoint.sh"
+ENV ENTRYPOINT="docker-entrypoint.sh"
 
-ADD docker-entrypoint.sh ${ENTRYPOINT}
+COPY ${ENTRYPOINT} /usr/bin/${ENTRYPOINT}
 
 ADD https://github.com/sumory/lor/archive/${LOR_VERSION}.tar.gz /tmp
 ADD https://github.com/imocat/orange/archive/${ORANGE_VERSION}.tar.gz /tmp
 
 RUN date \
-&& chmod +x ${ENTRYPOINT} \
+&& chmod +x /usr/bin/${ENTRYPOINT} \
 && useradd www \
 && yum update -y \
 && yum-config-manager --add-repo https://openresty.org/yum/cn/centos/OpenResty.repo \
@@ -19,7 +19,7 @@ RUN date \
 && yum install -y openresty openresty-resty openresty-opm \
 && yum install -y make net-tool luarocks lua lua-devel gcc g++ \
 && yum clean all \
-&& ln -s /usr/local/openresty/nginx/sbin/nginx /usr/local/bin/nginx \
+&& ln -s /usr/local/openresty/nginx/susr/bin/nginx /usr/local/usr/bin/nginx \
 && yum clean all \
 && cd /tmp \
 && sh -c 'if [[ -f "${LOR_VERSION}.tar.gz" ]];then tar xf ${LOR_VERSION}.tar.gz;fi;' \
@@ -35,4 +35,4 @@ RUN date \
 
 EXPOSE 7777 8888 9999
 
-ENTRYPOINT ${ENTRYPOINT}
+ENTRYPOINT "/usr/bin/${ENTRYPOINT}"
