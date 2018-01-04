@@ -35,8 +35,7 @@ fi
 
 sed -i "s/worker_processes  4;/user www www;\nworker_processes  ${processor};\ndaemon  on;/g" ${NGINX_CONF}
 sed -i "s/listen       80;/listen       8888;/g" ${NGINX_CONF}
-
-# 设置 nginx 的 DNS 解析服务器
+ # 设置 nginx 的 DNS 解析服务器
 if [[ "${NGINX_DNS}" != "" ]]
 then
     sed -i "s/resolver 114.114.114.114;/resolver ${NGINX_DNS};/g" ${NGINX_CONF}
@@ -60,4 +59,4 @@ echo "注册 ORANGE 节点"
 
 echo "监控日志文件"
 
-tail -f ${ORANGE_PATH}/logs/access.log
+tail -f ${ORANGE_PATH}/logs/$(hostname)-access.log
