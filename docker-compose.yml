@@ -17,3 +17,4 @@ services:
     - ORANGE_DB_USER=root
     - ORANGE_DB_PWD=123
     - ORANGE_DB_NAME=orange
+    - ORANGE_GLOBAL_MODE=1

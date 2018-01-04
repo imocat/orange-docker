@@ -20,4 +20,5 @@ docker-compose build
 | ORANGE\_DB\_USER | mysql 数据库用户名 |
 | ORANGE\_DB\_PWD | mysql 数据库密码 |
 | ORANGE\_DB\_NAME | mysql 数据库名称 |
+| ORANGE\_GLOBAL\_MODE | 是否使用 swarm 集群的 global 模式 |
 

@@ -4,6 +4,7 @@ export ORANGE_CONF="${ORANGE_PATH}/conf/orange.conf"
 export NGINX_CONF="${ORANGE_PATH}/conf/nginx.conf"
 export ORANGE_API_USERNAME="${ORANGE_API_USERNAME-u$(date +"%s")}"
 export ORANGE_API_PASSWORD="${ORANGE_API_PASSWORD-p$(date +"%s")}"
+export ORANGE_LOG_FILE="${ORANGE_PATH}/logs/access.log"
 
 echo "初始化"
 
@@ -35,14 +36,19 @@ fi
 
 sed -i "s/worker_processes  4;/user www www;\nworker_processes  ${processor};\ndaemon  on;/g" ${NGINX_CONF}
 sed -i "s/listen       80;/listen       8888;/g" ${NGINX_CONF}
- # 设置 nginx 的 DNS 解析服务器
+
+# 设置 nginx 的 DNS 解析服务器
 if [[ "${NGINX_DNS}" != "" ]]
 then
     sed -i "s/resolver 114.114.114.114;/resolver ${NGINX_DNS};/g" ${NGINX_CONF}
 fi
 
-# 修改日志文件命名
-sed -i "s/\/logs\//\/logs\/$(hostname)-/g" ${NGINX_CONF}
+if [[ "${ORANGE_GLOBAL_MODE}" != "1" ]]
+then
+    # 修改日志文件命名
+    sed -i "s/\/logs\//\/logs\/$(hostname)-/g" ${NGINX_CONF}
+    export ORANGE_LOG_FILE="${ORANGE_PATH}/logs/$(hostname)-access.log"
+fi
 
 # 设置 lua 环境
 echo "设置环境"
@@ -59,4 +65,9 @@ echo "注册 ORANGE 节点"
 
 echo "监控日志文件"
 
-tail -f ${ORANGE_PATH}/logs/$(hostname)-access.log
+if [[ -f "${ORANGE_LOG_FILE}" ]]
+then
+    touch ${ORANGE_LOG_FILE}
+fi
+
+tail -f ${ORANGE_LOG_FILE}
