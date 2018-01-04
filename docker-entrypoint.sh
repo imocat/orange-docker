@@ -36,18 +36,22 @@ fi
 sed -i "s/worker_processes  4;/user www www;\nworker_processes  ${processor};\ndaemon  on;/g" ${NGINX_CONF}
 sed -i "s/listen       80;/listen       8888;/g" ${NGINX_CONF}
 
+# 设置 nginx 的 DNS 解析服务器
 if [[ "${NGINX_DNS}" != "" ]]
 then
     sed -i "s/resolver 114.114.114.114;/resolver ${NGINX_DNS};/g" ${NGINX_CONF}
 fi
 
-echo "设置环境"
+# 修改日志文件命名
+sed -i "s/\/logs\//\/logs\/$(hostname)-/g" ${NGINX_CONF}
 
-# 启动 orange
+# 设置 lua 环境
+echo "设置环境"
 $(luarocks path --bin)
 
 echo "启动 ORANGE"
 
+# 启动 orange
 /usr/local/bin/orange start
 
 # 注册节点
