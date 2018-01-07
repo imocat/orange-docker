@@ -37,6 +37,12 @@ fi
 sed -i "s/worker_processes  4;/user www www;\nworker_processes  ${processor};\ndaemon  on;/g" ${NGINX_CONF}
 sed -i "s/listen       80;/listen       8888;/g" ${NGINX_CONF}
 
+# 日志切割
+if [[  "${ORANGE_LOG_ROTATE}" != "" ]]
+then
+    sed -i "s/daily/${ORANGE_LOG_ROTATE}/" /etc/logrotate.d/orange
+fi
+
 # 设置 nginx 的 DNS 解析服务器
 if [[ "${NGINX_DNS}" != "" ]]
 then

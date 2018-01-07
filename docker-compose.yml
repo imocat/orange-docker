@@ -12,6 +12,7 @@ services:
     environment:
     - NGINX_DNS=8.8.8.8 114.114.114.114
     - NGINX_WORKER_PROCESSES=2
+    - ORANGE_LOG_ROTATE=hourly
     - ORANGE_DB_HOST=192.168.31.213
     - ORANGE_DB_PORT=3306
     - ORANGE_DB_USER=root

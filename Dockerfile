@@ -10,6 +10,7 @@ COPY ${ENTRYPOINT} /usr/bin/${ENTRYPOINT}
 
 ADD https://github.com/sumory/lor/archive/${LOR_VERSION}.tar.gz /tmp
 ADD https://github.com/imocat/orange/archive/${ORANGE_VERSION}.tar.gz /tmp
+ADD orange.logrotate.conf /etc/logrotate.d/orange
 
 RUN date \
 && chmod +x /usr/bin/${ENTRYPOINT} \
@@ -18,7 +19,7 @@ RUN date \
 && yum-config-manager --add-repo https://openresty.org/yum/cn/centos/OpenResty.repo \
 && yum install -y epel-release \
 && yum install -y openresty openresty-resty openresty-opm \
-&& yum install -y net-tool luarocks lua lua-devel\
+&& yum install -y net-tool luarocks lua lua-devel logrotate crontabs \
 && yum install -y ${TEMP_INSTALL_PACKAGE} \
 && ln -s /usr/local/openresty/nginx/sbin/nginx /usr/local/bin/nginx \
 && yum clean all \
